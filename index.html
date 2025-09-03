@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>나눔셈 – 홈페이지 개편용 사이트맵(시안)</title>
+<style>
+  :root{
+    --mint:#329b89;           /* 나눔셈 민트 */
+    --turq:#1DD1A1;           /* 포인트 터콰이즈 */
+    --navy:#1f2a44;           /* 보조 남색 */
+    --orange:#f59e0b;         /* 보조 오렌지 */
+    --sky:#f1f9ff;            /* 연한 하늘 */
+    --mint-light:#effff9;     /* 밝은 민트 */
+    --gray:#6b7280;
+    --text:#1f2937;
+    --card:#ffffff;
+    --line:#e5e7eb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",AppleSDGothicNeo,"Malgun Gothic",sans-serif;color:var(--text);background:#fff}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1200px;margin:0 auto;padding:0 20px}
+  /* 0. Top promo ribbon */
+  .ribbon{background:linear-gradient(135deg,var(--turq),#48e6c8);color:#fff}
+  .ribbon .container{display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 20px}
+  .ribbon .btn{padding:6px 14px;border:2px solid rgba(255,255,255,.6);border-radius:999px}
+  .ribbon .btn:hover{background:#fff;color:var(--turq)}
+  /* 1. Header */
+  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .logo{display:flex;gap:10px;align-items:center}
+  .brand{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--mint),var(--turq));display:grid;place-items:center;color:#fff;font-weight:700}
+  .brand-name{font-weight:800;color:var(--mint);letter-spacing:.2px}
+  .menu{list-style:none;display:flex;gap:26px}
+  .menu a{position:relative;padding:6px 0}
+  .menu a:after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:2px;background:var(--mint);transition:right .25s}
+  .menu a:hover:after{right:0}
+  .actions{display:flex;gap:10px;align-items:center}
+  .btn{display:inline-block;padding:10px 16px;border-radius:10px;font-weight:700}
+  .btn-outline{border:2px solid var(--mint);color:var(--mint)}
+  .btn-outline:hover{background:var(--mint);color:#fff}
+  .btn-solid{background:linear-gradient(135deg,var(--mint),var(--turq));color:#fff}
+  .btn-solid:hover{filter:brightness(1.05)}
+  /* Sticky right rail CTA */
+  .rail{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:10px;z-index:60}
+  .rail a{background:#0f172a;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,.25)}
+  .rail a.secondary{background:var(--mint)}
+  /* 2. Hero */
+  .hero{background:linear-gradient(135deg,var(--mint),var(--turq));color:#fff;text-align:center;position:relative;overflow:hidden}
+  .hero .container{padding:80px 20px}
+  .hero h1{font-size:40px;line-height:1.15;margin-bottom:12px;font-weight:900}
+  .hero p{opacity:.95;font-size:18px}
+  .hero .row{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}
+  /* 3. Promo cards */
+  section{padding:64px 0}
+  .section-title{font-size:28px;font-weight:900;margin-bottom:18px;color:var(--mint)}
+  .sub{color:var(--gray);margin-bottom:28px}
+  .grid{display:grid;gap:18px}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,.04)}
+  .card h3{font-size:18px;margin:6px 0 8px}
+  .badge{display:inline-block;background:var(--mint-light);color:var(--mint);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
+  /* 4. Quick portal shortcuts (most emphasized) */
+  .portal{background:linear-gradient(180deg,var(--mint-light),#fff)}
+  .portal .card{border:2px solid rgba(50,155,137,.2)}
+  .portal .card .cta{margin-top:8px;color:var(--mint);font-weight:800}
+  .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .trust .chip{background:#e8faf5;color:#0f5132;border:1px solid #b6f0dc;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+  /* 5. Features tiles */
+  .feature-tile{display:flex;gap:10px;align-items:flex-start}
+  .icon{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:900}
+  .i1{background:var(--turq)} .i2{background:#16a34a} .i3{background:#0ea5e9}
+  .i4{background:#8b5cf6} .i5{background:#f97316} .i6{background:#ef4444}
+  .i7{background:#0ea5e9} .i8{background:#64748b}
+  /* 6. Steps */
+  .steps{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  .step{background:var(--sky);border:1px dashed var(--mint);border-radius:12px;padding:12px;text-align:center;font-size:14px}
+  .step strong{display:block;color:var(--mint);font-size:18px}
+  /* 7. Support */
+  .support .card{border-top:4px solid var(--turq)}
+  /* 8. Content hub */
+  .hub{background:linear-gradient(180deg,#fff,var(--sky))}
+  /* 9. Sitemap columns (visual menu) */
+  .sitemap .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .sitemap h4{font-size:16px;margin-bottom:8px;color:var(--navy)}
+  .sitemap ul{list-style:none;display:grid;gap:6px}
+  .sitemap li{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;font-size:14px}
+  footer{background:#0b162b;color:#cbd5e1;padding:40px 0;margin-top:40px}
+  footer a{color:#e2e8f0}
+  /* responsive */
+  @media(max-width:1024px){.grid.cols-4{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:768px){
+    .menu{display:none}
+    .grid.cols-3{grid-template-columns:1fr}
+    .grid.cols-4{grid-template-columns:1fr}
+    .steps{grid-template-columns:repeat(2,1fr)}
+    .sitemap .cols{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 띠 배너(이벤트) -->
+<div class="ribbon">
+  <div class="container">
+    <strong>이벤트</strong>
+    <span>신규 단체 교육 프로모션 / 데이터 이전 지원</span>
+    <a href="#promos" class="btn">자세히 보기</a>
+  </div>
+</div>
+
+<!-- 헤더 (기존 톤 유지 / 우측 고정 액션) -->
+<header>
+  <div class="container nav">
+    <a class="logo" href="#home" aria-label="홈">
+      <div class="brand">N</div>
+      <div class="brand-name">나눔셈</div>
+    </a>
+    <ul class="menu" role="navigation" aria-label="주요 메뉴">
+      <li><a href="#portal">후원 포털</a></li>
+      <li><a href="#features">기능 소개(ERP)</a></li>
+      <li><a href="#getting-started">도입·이용안내</a></li>
+      <li><a href="#support">교육·지원</a></li>
+      <li><a href="#hub">콘텐츠 허브</a></li>
+      <li><a href="#about">회사소개</a></li>
+    </ul>
+    <div class="actions">
+      <a class="btn btn-outline" href="#login" title="ERP 로그인">ERP 로그인</a>
+      <a class="btn btn-solid" href="#apply" title="이용신청">이용신청</a>
+    </div>
+  </div>
+</header>
+
+<!-- 우측 고정 레일(로그인/상담) -->
+<div class="rail" aria-label="빠른 실행">
+  <a href="#login" class="secondary">로그인</a>
+  <a href="tel:025655886">상담 02-565-5886</a>
+</div>
+
+<main id="home">
+  <!-- 메인 히어로 -->
+  <section class="hero">
+    <div class="container">
+      <h1>후원의 시작을 나눔셈과 함께</h1>
+      <p>후원자와 소규모 비영리단체를 잇는 포털 · ERP · 교육·지원까지 한 곳에서</p>
+      <div class="row">
+        <a class="btn btn-solid" href="#portal">후원 포털 바로가기</a>
+        <a class="btn btn-outline" href="#getting-started">도입 안내 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 이벤트·프로모션 섹션 -->
+  <section id="promos" class="container">
+    <h2 class="section-title">이벤트 · 프로모션</h2>
+    <p class="sub">신규 할인 / 정기 교육 / 데이터 이전 지원</p>
+    <div class="grid cols-3">
+      <div class="card">
+        <span class="badge">신규 단체</span>
+        <h3>첫 등록 혜택</h3>
+        <p>초기 도입 비용 절차 안내 및 혜택 제공</p>
+      </div>
+      <div class="card">
+        <span class="badge">교육</span>
+        <h3>정기 활용 교육</h3>
+        <p>월별 일정에 따라 실무 중심 교육 운영</p>
+      </div>
+      <div class="card">
+        <span class="badge">이전</span>
+        <h3>데이터 이전 가이드</h3>
+        <p>주소록/후원/회계 데이터 이전 절차 안내</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 후원 포털 바로가기 (핵심 강조) -->
+  <section id="portal" class="portal">
+    <div class="container">
+      <h2 class="section-title">후원 포털</h2>
+      <p class="sub">후원자 우선 구조 – 네 가지 핵심 바로가기</p>
+      <div class="grid cols-4">
+        <div class="card">
+          <span class="badge">포털</span>
+          <h3>단체찾기</h3>
+          <p>관심 분야·지역 기준으로 단체 탐색</p>
+          <a class="cta" href="/portal/orgs">/portal/orgs</a>
+        </div>
+        <div class="card">
+          <span class="badge">약정</span>
+          <h3>후원금 약정 신청하기</h3>
+          <p>간편 신청 · CMS 안내 연계</p>
+          <a class="cta" href="/portal/pledge">/portal/pledge</a>
+        </div>
+        <div class="card">
+          <span class="badge">조회</span>
+          <h3>후원내역 조회</h3>
+          <p>본인확인 후 영수증 출력</p>
+          <a class="cta" href="/portal/history">/portal/history</a>
+        </div>
+        <div class="card">
+          <span class="badge">공시</span>
+          <h3>후원단체 결산서 조회</h3>
+          <p>단체별 재무·운영보고 열람</p>
+          <a class="cta" href="/portal/reports">/portal/reports</a>
+        </div>
+      </div>
+      <div class="trust">
+        <div class="chip">24시간 모니터링</div>
+        <div class="chip">다단계 백업</div>
+        <div class="chip">안정적 운영</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 기능 소개(요약 타일) -->
+  <section id="features" class="container">
+    <h2 class="section-title">기능 소개(ERP)</h2>
+    <p class="sub">주소록 / 후원·활동 / 행사 / 회계 / 인사·급여 / 세무 / 수납(CMS) / 보고서</p>
+    <div class="grid cols-4">
+      <div class="card feature-tile"><div class="icon i1">A</div><div><h3>주소록</h3><p>후원자·자원봉사자·수혜자·거래처</p></div></div>
+      <div class="card feature-tile"><div class="icon i2">D</div><div><h3>후원·활동</h3><p>약정·수납·커뮤니케이션</p></div></div>
+      <div class="card feature-tile"><div class="icon i3">E</div><div><h3>행사</h3><p>등록·참가·정산</p></div></div>
+      <div class="card feature-tile"><div class="icon i4">AC</div><div><h3>회계</h3><p>전표·장부·보고서·예산</p></div></div>
+      <div class="card feature-tile"><div class="icon i5">W</div><div><h3>업무</h3><p>결의·매매자료·계좌/카드</p></div></div>
+      <div class="card feature-tile"><div class="icon i6">HR</div><div><h3>인사·급여</h3><p>사원·급여·권한</p></div></div>
+      <div class="card feature-tile"><div class="icon i7">TX</div><div><h3>세무</h3><p>소득지급·원천·법인세</p></div></div>
+      <div class="card feature-tile"><div class="icon i8">CMS</div><div><h3>수납(CMS)</h3><p>출금 처리·집계</p></div></div>
+    </div>
+  </section>
+
+  <!-- 도입·이용 안내 -->
+  <section id="getting-started" class="container">
+    <h2 class="section-title">도입·이용 안내</h2>
+    <p class="sub">절차 요약 · 요금 안내 · 데이터 이전 · 제휴/보안</p>
+    <div class="steps">
+      <div class="step"><strong>1</strong>회원가입</div>
+      <div class="step"><strong>2</strong>이용신청</div>
+      <div class="step"><strong>3</strong>가입비 납부</div>
+      <div class="step"><strong>4</strong>서류 제출</div>
+      <div class="step"><strong>5</strong>DB 세팅</div>
+      <div class="step"><strong>6</strong>승인</div>
+      <div class="step"><strong>7</strong>이용 시작</div>
+    </div>
+    <div class="grid cols-3" style="margin-top:18px">
+      <div class="card"><h3>요금 안내</h3><p>주소록 인원·메뉴 기준 표 제공</p></div>
+      <div class="card"><h3>데이터 이전</h3><p>이전 범위 및 업로드 가이드</p></div>
+      <div class="card"><h3>제휴/보안</h3><p>은행·CMS 제휴 / 보안·백업 체계</p></div>
+    </div>
+  </section>
+
+  <!-- 교육·지원 -->
+  <section id="support" class="support container">
+    <h2 class="section-title">교육·지원</h2>
+    <p class="sub">정기 교육 · 온라인 매뉴얼 · 자료실 · 원격지원 · 공지/FAQ</p>
+    <div class="grid cols-3">
+      <div class="card"><h3>정기 교육 신청</h3><p>일정 확인·신청</p></div>
+      <div class="card"><h3>온라인 매뉴얼(검색형)</h3><p>업무별 사용 가이드</p></div>
+      <div class="card"><h3>자료실</h3><p>양식 / 매뉴얼 PDF</p></div>
+      <div class="card"><h3>1:1 원격지원</h3><p>원격 연결로 문제 해결</p></div>
+      <div class="card"><h3>공지/FAQ</h3><p>업데이트·자주 묻는 질문</p></div>
+    </div>
+  </section>
+
+  <!-- 콘텐츠 허브 -->
+  <section id="hub" class="hub">
+    <div class="container">
+      <h2 class="section-title">콘텐츠 허브</h2>
+      <p class="sub">사례 · 블로그 · 영상 튜토리얼</p>
+      <div class="grid cols-3">
+        <div class="card"><span class="badge">사례</span><h3>고객 성공사례</h3><p>현장 활용 스토리</p></div>
+        <div class="card"><span class="badge">블로그</span><h3>실무 팁</h3><p>회계·세무·운영</p></div>
+        <div class="card"><span class="badge">영상</span><h3>튜토리얼</h3><p>단계별 활용</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 시각화된 사이트맵(1차/2차 구조 요약) -->
+  <section class="sitemap container" id="sitemap">
+    <h2 class="section-title">사이트맵(요약)</h2>
+    <div class="cols">
+      <div>
+        <h4>1. 후원 포털</h4>
+        <ul>
+          <li>단체찾기  →  /portal/orgs</li>
+          <li>후원금 약정 신청하기  →  /portal/pledge</li>
+          <li>후원내역 조회  →  /portal/history</li>
+          <li>후원단체 결산서 조회  →  /portal/reports</li>
+          <li>후원자 FAQ</li>
+        </ul>
+      </div>
+      <div>
+        <h4>2. 기능 소개(ERP)</h4>
+        <ul>
+          <li>주소록 / 후원·활동 / 행사 / 회계</li>
+          <li>인사·급여 / 세무 / 수납(CMS) / 보고서</li>
+          <li>URL: /features/(addressbook|donation|event|accounting|hr|tax|cms)</li>
+        </ul>
+        <h4 style="margin-top:16px">3. 도입·이용안내</h4>
+        <ul>
+          <li>도입 절차(7단계)</li>
+          <li>요금 안내</li>
+          <li>데이터 이전 안내</li>
+          <li>제휴/보안</li>
+          <li>URL: /getting-started/(process|pricing|migration|security|partners)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>4. 교육·지원</h4>
+        <ul>
+          <li>정기 교육 신청 / 온라인 매뉴얼</li>
+          <li>자료실 / 1:1 원격지원</li>
+          <li>공지사항 / FAQ</li>
+          <li>URL: /support/(training|manual|download|remote|notice|faq)</li>
+        </ul>
+        <h4 style="margin-top:16px">5~7. 콘텐츠·회사·로그인</h4>
+        <ul>
+          <li>콘텐츠 허브 → /stories /blog /videos</li>
+          <li>회사소개 → /about/(company|history|press|careers)</li>
+          <li>ERP 로그인(헤더·우측 레일 상시 노출)</li>
+          <li>[로그인] + [상담 02-565-5886] 고정</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="about">
+  <div class="container" style="display:grid;gap:10px">
+    <div><strong>나눔셈</strong> · 비영리 전문 ERP 솔루션</div>
+    <div style="font-size:14px;color:#94a3b8">© 2025 NANUMSEM. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
