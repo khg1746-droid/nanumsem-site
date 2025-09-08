@@ -1,337 +1,735 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>나눔셈 – 홈페이지 개편용 사이트맵(시안)</title>
-<style>
-  :root{
-    --mint:#329b89;           /* 나눔셈 민트 */
-    --turq:#1DD1A1;           /* 포인트 터콰이즈 */
-    --navy:#1f2a44;           /* 보조 남색 */
-    --orange:#f59e0b;         /* 보조 오렌지 */
-    --sky:#f1f9ff;            /* 연한 하늘 */
-    --mint-light:#effff9;     /* 밝은 민트 */
-    --gray:#6b7280;
-    --text:#1f2937;
-    --card:#ffffff;
-    --line:#e5e7eb;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",AppleSDGothicNeo,"Malgun Gothic",sans-serif;color:var(--text);background:#fff}
-  a{color:inherit;text-decoration:none}
-  .container{max-width:1200px;margin:0 auto;padding:0 20px}
-  /* 0. Top promo ribbon */
-  .ribbon{background:linear-gradient(135deg,var(--turq),#48e6c8);color:#fff}
-  .ribbon .container{display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 20px}
-  .ribbon .btn{padding:6px 14px;border:2px solid rgba(255,255,255,.6);border-radius:999px}
-  .ribbon .btn:hover{background:#fff;color:var(--turq)}
-  /* 1. Header */
-  header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-  .logo{display:flex;gap:10px;align-items:center}
-  .brand{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--mint),var(--turq));display:grid;place-items:center;color:#fff;font-weight:700}
-  .brand-name{font-weight:800;color:var(--mint);letter-spacing:.2px}
-  .menu{list-style:none;display:flex;gap:26px}
-  .menu a{position:relative;padding:6px 0}
-  .menu a:after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:2px;background:var(--mint);transition:right .25s}
-  .menu a:hover:after{right:0}
-  .actions{display:flex;gap:10px;align-items:center}
-  .btn{display:inline-block;padding:10px 16px;border-radius:10px;font-weight:700}
-  .btn-outline{border:2px solid var(--mint);color:var(--mint)}
-  .btn-outline:hover{background:var(--mint);color:#fff}
-  .btn-solid{background:linear-gradient(135deg,var(--mint),var(--turq));color:#fff}
-  .btn-solid:hover{filter:brightness(1.05)}
-  /* Sticky right rail CTA */
-  .rail{position:fixed;right:14px;bottom:20px;display:flex;flex-direction:column;gap:10px;z-index:60}
-  .rail a{background:#0f172a;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,.25)}
-  .rail a.secondary{background:var(--mint)}
-  /* 2. Hero */
-  .hero{background:linear-gradient(135deg,var(--mint),var(--turq));color:#fff;text-align:center;position:relative;overflow:hidden}
-  .hero .container{padding:80px 20px}
-  .hero h1{font-size:40px;line-height:1.15;margin-bottom:12px;font-weight:900}
-  .hero p{opacity:.95;font-size:18px}
-  .hero .row{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}
-  /* 3. Promo cards */
-  section{padding:64px 0}
-  .section-title{font-size:28px;font-weight:900;margin-bottom:18px;color:var(--mint)}
-  .sub{color:var(--gray);margin-bottom:28px}
-  .grid{display:grid;gap:18px}
-  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
-  .grid.cols-4{grid-template-columns:repeat(4,1fr)}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,.04)}
-  .card h3{font-size:18px;margin:6px 0 8px}
-  .badge{display:inline-block;background:var(--mint-light);color:var(--mint);padding:6px 10px;border-radius:999px;font-weight:700;font-size:12px}
-  /* 4. Quick portal shortcuts (most emphasized) */
-  .portal{background:linear-gradient(180deg,var(--mint-light),#fff)}
-  .portal .card{border:2px solid rgba(50,155,137,.2)}
-  .portal .card .cta{margin-top:8px;color:var(--mint);font-weight:800}
-  .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-  .trust .chip{background:#e8faf5;color:#0f5132;border:1px solid #b6f0dc;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
-  /* 5. Features tiles */
-  .feature-tile{display:flex;gap:10px;align-items:flex-start}
-  .icon{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:900}
-  .i1{background:var(--turq)} .i2{background:#16a34a} .i3{background:#0ea5e9}
-  .i4{background:#8b5cf6} .i5{background:#f97316} .i6{background:#ef4444}
-  .i7{background:#0ea5e9} .i8{background:#64748b}
-  /* 6. Steps */
-  .steps{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
-  .step{background:var(--sky);border:1px dashed var(--mint);border-radius:12px;padding:12px;text-align:center;font-size:14px}
-  .step strong{display:block;color:var(--mint);font-size:18px}
-  /* 7. Support */
-  .support .card{border-top:4px solid var(--turq)}
-  /* 8. Content hub */
-  .hub{background:linear-gradient(180deg,#fff,var(--sky))}
-  /* 9. Sitemap columns (visual menu) */
-  .sitemap .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .sitemap h4{font-size:16px;margin-bottom:8px;color:var(--navy)}
-  .sitemap ul{list-style:none;display:grid;gap:6px}
-  .sitemap li{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px;font-size:14px}
-  footer{background:#0b162b;color:#cbd5e1;padding:40px 0;margin-top:40px}
-  footer a{color:#e2e8f0}
-  /* responsive */
-  @media(max-width:1024px){.grid.cols-4{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(4,1fr)}}
-  @media(max-width:768px){
-    .menu{display:none}
-    .grid.cols-3{grid-template-columns:1fr}
-    .grid.cols-4{grid-template-columns:1fr}
-    .steps{grid-template-columns:repeat(2,1fr)}
-    .sitemap .cols{grid-template-columns:1fr}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나눔셈 - 후원의 시작을 나눔셈과 함께</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* 브랜드 컬러 */
+        :root {
+            --nanumsem-mint: #329b89;
+            --point-turquoise: #1DD1A1;
+            --navy: #04245c;
+            --orange: #ff9100;
+            --light-mint: #effff9;
+            --light-sky: #f1f9ff;
+        }
+        
+        /* 상단 띠 배너 */
+        .top-banner {
+            background: var(--orange);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        /* 헤더 */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--nanumsem-mint);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 10px 0;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--nanumsem-mint);
+        }
+        
+        /* 드롭다운 메뉴 */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 15px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown a {
+            display: block;
+            padding: 8px 0;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .dropdown a:hover {
+            color: var(--nanumsem-mint);
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--nanumsem-mint);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--nanumsem-mint);
+            border: 1px solid var(--nanumsem-mint);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* 빠른 진입 버튼 */
+        .quick-access {
+            background: var(--light-mint);
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .quick-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quick-btn {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: var(--nanumsem-mint);
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            background: var(--nanumsem-mint);
+            color: white;
+        }
+        
+        /* 히어로 섹션 */
+        .hero {
+            background: linear-gradient(135deg, var(--nanumsem-mint) 0%, var(--point-turquoise) 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .donation-portal {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .portal-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .portal-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .portal-btn {
+            background: white;
+            color: var(--nanumsem-mint);
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .portal-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* 이벤트 섹션 */
+        .events-section {
+            padding: 80px 20px;
+            background: var(--light-sky);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--navy);
+            margin-bottom: 50px;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .event-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--orange), var(--point-turquoise));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .event-content {
+            padding: 25px;
+        }
+        
+        /* 기능 소개 섹션 */
+        .features-section {
+            padding: 80px 20px;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: var(--light-mint);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(50, 155, 137, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--nanumsem-mint);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        /* 푸터 */
+        .footer {
+            background: var(--navy);
+            color: white;
+            padding: 50px 20px 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--nanumsem-mint);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--point-turquoise);
+            transform: translateY(-3px);
+        }
+        
+        /* 플로팅 버튼 */
+        .floating-buttons {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .floating-btn {
+            background: var(--nanumsem-mint);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            background: var(--point-turquoise);
+            transform: translateY(-3px);
+        }
+        
+        /* 애니메이션 */
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .quick-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .portal-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<!-- 상단 띠 배너(이벤트) -->
-<div class="ribbon">
-  <div class="container">
-    <strong>이벤트</strong>
-    <span>신규 단체 교육 프로모션 / 데이터 이전 지원</span>
-    <a href="#promos" class="btn">자세히 보기</a>
-  </div>
-</div>
-
-<!-- 헤더 (기존 톤 유지 / 우측 고정 액션) -->
-<header>
-  <div class="container nav">
-    <a class="logo" href="#home" aria-label="홈">
-      <div class="brand">N</div>
-      <div class="brand-name">나눔셈</div>
-    </a>
-    <ul class="menu" role="navigation" aria-label="주요 메뉴">
-      <li><a href="#portal">후원 포털</a></li>
-      <li><a href="#features">기능 소개(ERP)</a></li>
-      <li><a href="#getting-started">도입·이용안내</a></li>
-      <li><a href="#support">교육·지원</a></li>
-      <li><a href="#hub">콘텐츠 허브</a></li>
-      <li><a href="#about">회사소개</a></li>
-    </ul>
-    <div class="actions">
-      <a class="btn btn-outline" href="#login" title="ERP 로그인">ERP 로그인</a>
-      <a class="btn btn-solid" href="#apply" title="이용신청">이용신청</a>
+    <!-- 상단 띠 배너 -->
+    <div class="top-banner">
+        🎉 신규 단체 50% 할인 이벤트 진행중! | 무료 교육 신청하기 | 입소문 이벤트 참여하고 경품받기
     </div>
-  </div>
-</header>
-
-<!-- 우측 고정 레일(로그인/상담) -->
-<div class="rail" aria-label="빠른 실행">
-  <a href="#login" class="secondary">로그인</a>
-  <a href="tel:025655886">상담 02-565-5886</a>
-</div>
-
-<main id="home">
-  <!-- 메인 히어로 -->
-  <section class="hero">
-    <div class="container">
-      <h1>후원의 시작을 나눔셈과 함께</h1>
-      <p>후원자와 소규모 비영리단체를 잇는 포털 · ERP · 교육·지원까지 한 곳에서</p>
-      <div class="row">
-        <a class="btn btn-solid" href="#portal">후원 포털 바로가기</a>
-        <a class="btn btn-outline" href="#getting-started">도입 안내 보기</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 이벤트·프로모션 섹션 -->
-  <section id="promos" class="container">
-    <h2 class="section-title">이벤트 · 프로모션</h2>
-    <p class="sub">신규 할인 / 정기 교육 / 데이터 이전 지원</p>
-    <div class="grid cols-3">
-      <div class="card">
-        <span class="badge">신규 단체</span>
-        <h3>첫 등록 혜택</h3>
-        <p>초기 도입 비용 절차 안내 및 혜택 제공</p>
-      </div>
-      <div class="card">
-        <span class="badge">교육</span>
-        <h3>정기 활용 교육</h3>
-        <p>월별 일정에 따라 실무 중심 교육 운영</p>
-      </div>
-      <div class="card">
-        <span class="badge">이전</span>
-        <h3>데이터 이전 가이드</h3>
-        <p>주소록/후원/회계 데이터 이전 절차 안내</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 후원 포털 바로가기 (핵심 강조) -->
-  <section id="portal" class="portal">
-    <div class="container">
-      <h2 class="section-title">후원 포털</h2>
-      <p class="sub">후원자 우선 구조 – 네 가지 핵심 바로가기</p>
-      <div class="grid cols-4">
-        <div class="card">
-          <span class="badge">포털</span>
-          <h3>단체찾기</h3>
-          <p>관심 분야·지역 기준으로 단체 탐색</p>
-          <a class="cta" href="/portal/orgs">/portal/orgs</a>
+    
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">나눔셈</div>
+            <nav class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">나눔셈소개</a>
+                    <div class="dropdown">
+                        <a href="#">나눔셈</a>
+                        <a href="#">NGO교육</a>
+                        <a href="#">NGO컨설팅</a>
+                        <a href="#">회사소개</a>
+                        <a href="#">채용</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">나눔자료</a>
+                    <div class="dropdown">
+                        <a href="#">컬럼</a>
+                        <a href="#">자료실</a>
+                        <a href="#">교육자료</a>
+                        <a href="#">NGO QNA</a>
+                        <a href="#">NGO 채용</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">이용안내</a>
+                    <div class="dropdown">
+                        <a href="#">공지사항</a>
+                        <a href="#">신규단체 도입안내</a>
+                        <a href="#">요금안내</a>
+                        <a href="#">FAQ</a>
+                        <a href="#">이벤트&프로모션</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">교육·지원</a>
+                    <div class="dropdown">
+                        <a href="#">나눔셈교육일정</a>
+                        <a href="#">이용자메뉴얼</a>
+                        <a href="#">원격지원요청</a>
+                        <a href="#">QNA</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">마이페이지</a>
+                    <div class="dropdown">
+                        <a href="#">회원정보</a>
+                        <a href="#">내게시물</a>
+                        <a href="#">내상담</a>
+                        <a href="#">탈퇴신청</a>
+                    </div>
+                </li>
+            </nav>
+            <div class="header-buttons">
+                <a href="#" class="btn btn-secondary">로그인</a>
+                <a href="#" class="btn btn-secondary">회원가입</a>
+                <a href="#" class="btn btn-primary">원격지원</a>
+                <a href="#" class="btn btn-primary">이용신청</a>
+            </div>
         </div>
-        <div class="card">
-          <span class="badge">약정</span>
-          <h3>후원금 약정 신청하기</h3>
-          <p>간편 신청 · CMS 안내 연계</p>
-          <a class="cta" href="/portal/pledge">/portal/pledge</a>
+    </header>
+    
+    <!-- 빠른 진입 버튼 -->
+    <section class="quick-access">
+        <div class="quick-buttons">
+            <a href="#" class="quick-btn">🚀 나눔셈 이용하기</a>
+            <a href="#" class="quick-btn">📋 신규 단체 도입안내</a>
+            <a href="#" class="quick-btn">🎧 고객지원</a>
         </div>
-        <div class="card">
-          <span class="badge">조회</span>
-          <h3>후원내역 조회</h3>
-          <p>본인확인 후 영수증 출력</p>
-          <a class="cta" href="/portal/history">/portal/history</a>
+    </section>
+    
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>후원의 시작을 나눔셈과 함께</h1>
+            <p>투명하고 효율적인 NGO 운영을 위한 통합 솔루션</p>
+            
+            <div class="donation-portal">
+                <h2 class="portal-title">후원 포털 바로가기</h2>
+                <div class="portal-buttons">
+                    <a href="#" class="portal-btn">🔍 단체찾기</a>
+                    <a href="#" class="portal-btn">💝 후원금 약정 신청</a>
+                    <a href="#" class="portal-btn">📊 후원내역 조회</a>
+                    <a href="#" class="portal-btn">📈 후원단체 결산서</a>
+                </div>
+            </div>
         </div>
-        <div class="card">
-          <span class="badge">공시</span>
-          <h3>후원단체 결산서 조회</h3>
-          <p>단체별 재무·운영보고 열람</p>
-          <a class="cta" href="/portal/reports">/portal/reports</a>
+    </section>
+    
+    <!-- 이벤트 섹션 -->
+    <section class="events-section fade-in">
+        <div class="container">
+            <h2 class="section-title">이벤트 & 프로모션</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-image">신규 할인</div>
+                    <div class="event-content">
+                        <h3>신규 단체 50% 할인</h3>
+                        <p>새로 가입하는 단체에게 첫 6개월 50% 할인 혜택을 제공합니다.</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">무료 교육</div>
+                    <div class="event-content">
+                        <h3>무료 온라인 교육</h3>
+                        <p>NGO 회계 기초부터 고급까지, 전문가와 함께하는 무료 교육 프로그램</p>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">경품 이벤트</div>
+                    <div class="event-content">
+                        <h3>입소문 경품 이벤트</h3>
+                        <p>나눔셈을 추천해주시는 분께 다양한 경품을 드립니다!</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="trust">
-        <div class="chip">24시간 모니터링</div>
-        <div class="chip">다단계 백업</div>
-        <div class="chip">안정적 운영</div>
-      </div>
+    </section>
+    
+    <!-- 기능 소개 섹션 -->
+    <section class="features-section fade-in">
+        <div class="container">
+            <h2 class="section-title">나눔셈 핵심 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card" onclick="showVideo('accounting')">
+                    <div class="feature-icon">💰</div>
+                    <h3>회계 관리</h3>
+                    <p>공익법인회계기준 준수<br>복식부기 결산, 기금회계</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('tax')">
+                    <div class="feature-icon">📋</div>
+                    <h3>세무 관리</h3>
+                    <p>소득지급, 원천세<br>법인세 관리</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('cms')">
+                    <div class="feature-icon">💳</div>
+                    <h3>수납 관리</h3>
+                    <p>CMS 회원관리<br>출금, 집계 자동화</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('contacts')">
+                    <div class="feature-icon">📞</div>
+                    <h3>주소록 관리</h3>
+                    <p>후원자, 자원봉사자<br>수혜자, 거래처 통합관리</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('donation')">
+                    <div class="feature-icon">❤️</div>
+                    <h3>활동 관리</h3>
+                    <p>후원약정, 기부금영수증<br>출연재산보고</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('event')">
+                    <div class="feature-icon">🎉</div>
+                    <h3>행사 관리</h3>
+                    <p>행사 등록, 진행<br>참가자 관리</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('work')">
+                    <div class="feature-icon">📝</div>
+                    <h3>업무 관리</h3>
+                    <p>결의서, 매매자료<br>금융계좌 등록</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('hr')">
+                    <div class="feature-icon">👥</div>
+                    <h3>인사·급여</h3>
+                    <p>사원관리, 급여계산<br>일용직, 권한설정</p>
+                </div>
+                <div class="feature-card" onclick="showVideo('user')">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>이용자 메뉴</h3>
+                    <p>단체정보, 문자/메일<br>일정, 게시판</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-links">
+                    <a href="#">오시는 길</a>
+                    <a href="#">사이트맵</a>
+                    <a href="#">이용자매뉴얼</a>
+                    <a href="#">인재채용</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보취급방침</a>
+                    <a href="#">이메일추출방지정책</a>
+                </div>
+                <div style="margin-top: 20px;">
+                    <strong>주식회사 나눔셈</strong><br>
+                    서울특별시 강남구 테헤란로 123<br>
+                    대표전화: 02-565-5886<br>
+                    이메일: info@nanumsem.kr
+                </div>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">SNS 채널</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">Y</a>
+                    <a href="#" class="social-icon">I</a>
+                    <a href="#" class="social-icon">B</a>
+                    <a href="#" class="social-icon">F</a>
+                </div>
+            </div>
+            <div>
+                <h4 style="margin-bottom: 15px;">관련사이트</h4>
+                <select style="width: 100%; padding: 8px; border-radius: 5px;">
+                    <option>관련사이트 선택</option>
+                    <option>국세청</option>
+                    <option>행정안전부</option>
+                    <option>기획재정부</option>
+                </select>
+            </div>
+        </div>
+        <div style="text-align: center; padding-top: 20px; border-top: 1px solid #555; color: #999;">
+            Copyright © 2025 NANUMSEM Co., Ltd. All Rights Reserved.
+        </div>
+    </footer>
+    
+    <!-- 플로팅 버튼 -->
+    <div class="floating-buttons">
+        <a href="#" class="floating-btn">로그인</a>
+        <a href="tel:02-565-5886" class="floating-btn">상담하기<br>02-565-5886</a>
     </div>
-  </section>
-
-  <!-- 기능 소개(요약 타일) -->
-  <section id="features" class="container">
-    <h2 class="section-title">기능 소개(ERP)</h2>
-    <p class="sub">주소록 / 후원·활동 / 행사 / 회계 / 인사·급여 / 세무 / 수납(CMS) / 보고서</p>
-    <div class="grid cols-4">
-      <div class="card feature-tile"><div class="icon i1">A</div><div><h3>주소록</h3><p>후원자·자원봉사자·수혜자·거래처</p></div></div>
-      <div class="card feature-tile"><div class="icon i2">D</div><div><h3>후원·활동</h3><p>약정·수납·커뮤니케이션</p></div></div>
-      <div class="card feature-tile"><div class="icon i3">E</div><div><h3>행사</h3><p>등록·참가·정산</p></div></div>
-      <div class="card feature-tile"><div class="icon i4">AC</div><div><h3>회계</h3><p>전표·장부·보고서·예산</p></div></div>
-      <div class="card feature-tile"><div class="icon i5">W</div><div><h3>업무</h3><p>결의·매매자료·계좌/카드</p></div></div>
-      <div class="card feature-tile"><div class="icon i6">HR</div><div><h3>인사·급여</h3><p>사원·급여·권한</p></div></div>
-      <div class="card feature-tile"><div class="icon i7">TX</div><div><h3>세무</h3><p>소득지급·원천·법인세</p></div></div>
-      <div class="card feature-tile"><div class="icon i8">CMS</div><div><h3>수납(CMS)</h3><p>출금 처리·집계</p></div></div>
-    </div>
-  </section>
-
-  <!-- 도입·이용 안내 -->
-  <section id="getting-started" class="container">
-    <h2 class="section-title">도입·이용 안내</h2>
-    <p class="sub">절차 요약 · 요금 안내 · 데이터 이전 · 제휴/보안</p>
-    <div class="steps">
-      <div class="step"><strong>1</strong>회원가입</div>
-      <div class="step"><strong>2</strong>이용신청</div>
-      <div class="step"><strong>3</strong>가입비 납부</div>
-      <div class="step"><strong>4</strong>서류 제출</div>
-      <div class="step"><strong>5</strong>DB 세팅</div>
-      <div class="step"><strong>6</strong>승인</div>
-      <div class="step"><strong>7</strong>이용 시작</div>
-    </div>
-    <div class="grid cols-3" style="margin-top:18px">
-      <div class="card"><h3>요금 안내</h3><p>주소록 인원·메뉴 기준 표 제공</p></div>
-      <div class="card"><h3>데이터 이전</h3><p>이전 범위 및 업로드 가이드</p></div>
-      <div class="card"><h3>제휴/보안</h3><p>은행·CMS 제휴 / 보안·백업 체계</p></div>
-    </div>
-  </section>
-
-  <!-- 교육·지원 -->
-  <section id="support" class="support container">
-    <h2 class="section-title">교육·지원</h2>
-    <p class="sub">정기 교육 · 온라인 매뉴얼 · 자료실 · 원격지원 · 공지/FAQ</p>
-    <div class="grid cols-3">
-      <div class="card"><h3>정기 교육 신청</h3><p>일정 확인·신청</p></div>
-      <div class="card"><h3>온라인 매뉴얼(검색형)</h3><p>업무별 사용 가이드</p></div>
-      <div class="card"><h3>자료실</h3><p>양식 / 매뉴얼 PDF</p></div>
-      <div class="card"><h3>1:1 원격지원</h3><p>원격 연결로 문제 해결</p></div>
-      <div class="card"><h3>공지/FAQ</h3><p>업데이트·자주 묻는 질문</p></div>
-    </div>
-  </section>
-
-  <!-- 콘텐츠 허브 -->
-  <section id="hub" class="hub">
-    <div class="container">
-      <h2 class="section-title">콘텐츠 허브</h2>
-      <p class="sub">사례 · 블로그 · 영상 튜토리얼</p>
-      <div class="grid cols-3">
-        <div class="card"><span class="badge">사례</span><h3>고객 성공사례</h3><p>현장 활용 스토리</p></div>
-        <div class="card"><span class="badge">블로그</span><h3>실무 팁</h3><p>회계·세무·운영</p></div>
-        <div class="card"><span class="badge">영상</span><h3>튜토리얼</h3><p>단계별 활용</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 시각화된 사이트맵(1차/2차 구조 요약) -->
-  <section class="sitemap container" id="sitemap">
-    <h2 class="section-title">사이트맵(요약)</h2>
-    <div class="cols">
-      <div>
-        <h4>1. 후원 포털</h4>
-        <ul>
-          <li>단체찾기  →  /portal/orgs</li>
-          <li>후원금 약정 신청하기  →  /portal/pledge</li>
-          <li>후원내역 조회  →  /portal/history</li>
-          <li>후원단체 결산서 조회  →  /portal/reports</li>
-          <li>후원자 FAQ</li>
-        </ul>
-      </div>
-      <div>
-        <h4>2. 기능 소개(ERP)</h4>
-        <ul>
-          <li>주소록 / 후원·활동 / 행사 / 회계</li>
-          <li>인사·급여 / 세무 / 수납(CMS) / 보고서</li>
-          <li>URL: /features/(addressbook|donation|event|accounting|hr|tax|cms)</li>
-        </ul>
-        <h4 style="margin-top:16px">3. 도입·이용안내</h4>
-        <ul>
-          <li>도입 절차(7단계)</li>
-          <li>요금 안내</li>
-          <li>데이터 이전 안내</li>
-          <li>제휴/보안</li>
-          <li>URL: /getting-started/(process|pricing|migration|security|partners)</li>
-        </ul>
-      </div>
-      <div>
-        <h4>4. 교육·지원</h4>
-        <ul>
-          <li>정기 교육 신청 / 온라인 매뉴얼</li>
-          <li>자료실 / 1:1 원격지원</li>
-          <li>공지사항 / FAQ</li>
-          <li>URL: /support/(training|manual|download|remote|notice|faq)</li>
-        </ul>
-        <h4 style="margin-top:16px">5~7. 콘텐츠·회사·로그인</h4>
-        <ul>
-          <li>콘텐츠 허브 → /stories /blog /videos</li>
-          <li>회사소개 → /about/(company|history|press|careers)</li>
-          <li>ERP 로그인(헤더·우측 레일 상시 노출)</li>
-          <li>[로그인] + [상담 02-565-5886] 고정</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer id="about">
-  <div class="container" style="display:grid;gap:10px">
-    <div><strong>나눔셈</strong> · 비영리 전문 ERP 솔루션</div>
-    <div style="font-size:14px;color:#94a3b8">© 2025 NANUMSEM. All rights reserved.</div>
-  </div>
-</footer>
-
+    
+    <script>
+        // 스크롤 애니메이션
+        function fadeInOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        fadeInOnScroll(); // 초기 로드시 실행
+        
+        // 기능 소개 영상 모달 (시뮬레이션)
+        function showVideo(feature) {
+            alert(`${feature} 기능 소개 영상을 재생합니다.\n(실제 구현시 모달창으로 영상이 재생됩니다)`);
+        }
+        
+        // 헤더 스크롤 효과
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                document.querySelector('.header').style.transform = 'translateY(-100%)';
+            } else {
+                document.querySelector('.header').style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
 </body>
 </html>
